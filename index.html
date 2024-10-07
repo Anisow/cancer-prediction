@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Prediction App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Cancer Prediction App</h1>
+    <p>Please enter the patient's information below:</p>
+
+    <form id="predictionForm">
+        <div class="form-group">
+            <label for="smokingHabit">Smoking Habit</label>
+            <select class="form-control" id="smokingHabit" required>
+                <option value="">Select...</option>
+                <option value="Heavy">Heavy</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Occasional">Occasional</option>
+                <option value="Non-Smoker">Non-Smoker</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="drinkingHabit">Drinking Habit</label>
+            <select class="form-control" id="drinkingHabit" required>
+                <option value="">Select...</option>
+                <option value="Frequent">Frequent</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Occasional">Occasional</option>
+                <option value="Non-Drinker">Non-Drinker</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="bikingHabit">Biking Habit</label>
+            <select class="form-control" id="bikingHabit" required>
+                <option value="">Select...</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="walkingHabit">Walking Habit</label>
+            <select class="form-control" id="walkingHabit" required>
+                <option value="">Select...</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="joggingHabit">Jogging Habit</label>
+            <select class="form-control" id="joggingHabit" required>
+                <option value="">Select...</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Predict</button>
+    </form>
+
+    <div id="result" class="mt-4" style="display:none;">
+        <h3>Prediction Result</h3>
+        <p id="prediction"></p>
+        <p id="probability"></p>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script>
+    $('#predictionForm').on('submit', function(event) {
+        event.preventDefault();
+
+        // Collect input data
+        const data = {
+            smokingHabit: $('#smokingHabit').val(),
+            drinkingHabit: $('#drinkingHabit').val(),
+            bikingHabit: $('#bikingHabit').val(),
+            walkingHabit: $('#walkingHabit').val(),
+            joggingHabit: $('#joggingHabit').val(),
+        };
+
+        // Send the data to the prediction endpoint (replace 'your_api_endpoint' with your actual endpoint)
+        $.ajax({
+            type: "POST",
+            url: 'your_api_endpoint', // Replace with your API endpoint for predictions
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function(response) {
+                // Show the result
+                $('#result').show();
+                $('#prediction').text(response.prediction);
+                $('#probability').text(`Probability of having cancer: ${response.probability.cancerProbability}, Probability of not having cancer: ${response.probability.nonCancerProbability}`);
+            },
+            error: function(error) {
+                alert('Error in prediction: ' + error.responseText);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
