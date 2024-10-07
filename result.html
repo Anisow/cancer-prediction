@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancer Prediction Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <h1 class="mt-5">Cancer Prediction Result</h1>
+    
+    <div class="mt-4">
+        <h3>Prediction Result</h3>
+        <p id="prediction"></p>
+        <p id="probability"></p>
+    </div>
+
+    <a href="index.html" class="btn btn-primary mt-3">Back to Input</a>
+</div>
+
+<script>
+    // Assuming you pass the prediction result and probabilities from the server-side
+    // For example, using a template engine like Flask's render_template
+    const prediction = "{{ prediction }}"; // Replace with server-side value
+    const cancerProbability = "{{ cancerProbability }}"; // Replace with server-side value
+    const nonCancerProbability = "{{ nonCancerProbability }}"; // Replace with server-side value
+
+    // Display the prediction result
+    document.getElementById('prediction').innerText = prediction;
+    document.getElementById('probability').innerText = `Probability of having cancer: ${cancerProbability}, Probability of not having cancer: ${nonCancerProbability}`;
+</script>
+
+</body>
+</html>
